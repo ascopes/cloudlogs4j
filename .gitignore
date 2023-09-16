@@ -1,0 +1,23 @@
+# Build output
+build/
+out/
+target/
+
+# IntelliJ junk
+*.iml
+.idea
+
+# VSCode
+.vscode/
+.vs/
+
+# Eclipse
+.settings/
+.classpath
+
+# Maven
+pom.xml.next
+pom.xml.releaseBackup
+pom.xml.tag
+pom.xml.versionsBackup
+release.properties

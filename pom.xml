@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2022 Ashley Scopes
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.ascopes.cloudlogs4j</groupId>
+  <artifactId>cloudlogs4j-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>CloudLogs4J Project Parent</name>
+  <description>Parent module for the CloudLogs4J project.</description>
+
+  <inceptionYear>2022</inceptionYear>
+  <url>https://github.com/ascopes/cloudlogs4j</url>
+
+  <developers>
+    <developer>
+      <id>ascopes</id>
+      <name>Ashley Scopes</name>
+      <email>ashleyscopes@outlook.com</email>
+      <url>https://github.com/ascopes</url>
+      <organization>Ashley Scopes</organization>
+      <organizationUrl>https://github.com/ascopes</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/London</timezone>
+    </developer>
+  </developers>
+
+  <modules>
+    <module>cloudlogs4j-api</module>
+    <module>cloudlogs4j-aws</module>
+  </modules>
+
+  <properties>
+    <assertj.version>3.24.2</assertj.version>
+    <avaje-jsonb.version>1.7</avaje-jsonb.version>
+    <jspecify.version>0.3.0</jspecify.version>
+    <junit.version>5.10.0</junit.version>
+
+    <!-- Plugins -->
+    <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+    <license-maven-plugin.version>4.2</license-maven-plugin.version>
+    <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+    <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
+    <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+    <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+
+    <!-- Plugin dependencies -->
+    <checkstyle.version>10.12.3</checkstyle.version>
+    <maven-surefire-junit5-tree-reporter.version>1.2.1</maven-surefire-junit5-tree-reporter.version>
+
+    <!-- Project config -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.avaje</groupId>
+        <artifactId>avaje-jsonb</artifactId>
+        <version>${avaje-jsonb.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.avaje</groupId>
+        <artifactId>avaje-jsonb-generator</artifactId>
+        <version>${avaje-jsonb.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <!-- Fluent assertions -->
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj.version}</version>
+      </dependency>
+
+      <dependency>
+        <!-- @Nullable annotation support -->
+        <groupId>org.jspecify</groupId>
+        <artifactId>jspecify</artifactId>
+        <version>${jspecify.version}</version>
+      </dependency>
+
+      <dependency>
+        <!-- Unit testing -->
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <!-- Enforces our license header and allows adding it automatically to code. -->
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>${license-maven-plugin.version}</version>
+
+        <configuration>
+          <licenseSets>
+            <licenseSet>
+              <header>.mvn/license/license-header.txt</header>
+              <!-- Useful flags: https://mycila.carbou.me/license-maven-plugin/ -->
+              <includes>
+                <include>**.toml</include>
+                <include>**.yml</include>
+                <include>**.yaml</include>
+                <include>pom.xml</include>
+                <include>security-suppressions.xml</include>
+                <include>src/**/*.java</include>
+              </includes>
+            </licenseSet>
+          </licenseSets>
+          <mapping>
+            <groovy>SLASHSTAR_STYLE</groovy>
+            <java>SLASHSTAR_STYLE</java>
+            <toml>SCRIPT_STYLE</toml>
+          </mapping>
+          <properties>
+            <year>${project.inceptionYear}</year>
+          </properties>
+          <strictCheck>true</strictCheck>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>check-license-headers</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <!-- Checking style of code matches the Google code style -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
+        <inherited>false</inherited>
+
+        <executions>
+          <execution>
+            <id>check-code-style</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <configLocation>.mvn/checkstyle/checkstyle.xml</configLocation>
+              <consoleOutput>true</consoleOutput>
+              <failsOnError>true</failsOnError>
+              <includeResources>true</includeResources>
+              <sourceDirectories>${project.basedir}/src</sourceDirectories>
+              <suppressionsLocation>.mvn/checkstyle/suppressions.xml</suppressionsLocation>
+              <violationSeverity>info</violationSeverity>
+            </configuration>
+          </execution>
+        </executions>
+
+        <dependencies>
+          <dependency>
+            <!-- Force the usage of checkstyle v10 rather than v8.28 -->
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <!-- Java compiler config -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+
+          <configuration>
+            <failOnWarning>true</failOnWarning>
+            <parameters>true</parameters>
+            <release>17</release>
+            <showDeprecation>true</showDeprecation>
+            <showWarnings>true</showWarnings>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <!-- Integration testing config -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${maven-failsafe-plugin.version}</version>
+
+          <configuration>
+            <includes>
+              <include>*IntegrationTest</include>
+            </includes>
+
+            <runOrder>random</runOrder>
+
+            <!--
+              This block is needed to show @DisplayName and @ParameterizedTest
+              in reports with the provided names.
+            -->
+            <statelessTestsetReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5Xml30StatelessReporter">
+              <disable>false</disable>
+              <version>3.0</version>
+              <usePhrasedFileName>false</usePhrasedFileName>
+              <usePhrasedTestSuiteClassName>true</usePhrasedTestSuiteClassName>
+              <usePhrasedTestCaseClassName>true</usePhrasedTestCaseClassName>
+              <usePhrasedTestCaseMethodName>true</usePhrasedTestCaseMethodName>
+            </statelessTestsetReporter>
+            <consoleOutputReporter>
+              <disable>true</disable>
+            </consoleOutputReporter>
+            <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporterUnicode">
+              <disable>false</disable>
+              <usePhrasedFileName>false</usePhrasedFileName>
+              <usePhrasedClassNameInRunning>true</usePhrasedClassNameInRunning>
+              <usePhrasedClassNameInTestCaseSummary>true</usePhrasedClassNameInTestCaseSummary>
+            </statelessTestsetInfoReporter>
+          </configuration>
+
+          <dependencies>
+            <dependency>
+              <groupId>me.fabriciorby</groupId>
+              <artifactId>maven-surefire-junit5-tree-reporter</artifactId>
+              <version>${maven-surefire-junit5-tree-reporter.version}</version>
+            </dependency>
+          </dependencies>
+
+          <executions>
+            <execution>
+              <!-- Enable failsafe to run -->
+              <id>integration-test</id>
+              <!-- This must not run during the test phase - JaCoCo messes up the reporting! -->
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven-jar-plugin.version}</version>
+
+          <configuration>
+            <archive>
+              <manifest>
+                <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+              </manifest>
+              <manifestEntries>
+                <Sealed>true</Sealed>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <!-- Unit testing config -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+
+          <configuration>
+            <excludes>
+              <exclude>*IntegrationTest</exclude>
+            </excludes>
+
+            <runOrder>random</runOrder>
+
+            <!--
+              This block is needed to show @DisplayName and @ParameterizedTest
+              in reports with the provided names.
+            -->
+            <statelessTestsetReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5Xml30StatelessReporter">
+              <disable>false</disable>
+              <version>3.0</version>
+              <usePhrasedFileName>false</usePhrasedFileName>
+              <usePhrasedTestSuiteClassName>true</usePhrasedTestSuiteClassName>
+              <usePhrasedTestCaseClassName>true</usePhrasedTestCaseClassName>
+              <usePhrasedTestCaseMethodName>true</usePhrasedTestCaseMethodName>
+            </statelessTestsetReporter>
+            <consoleOutputReporter>
+              <disable>true</disable>
+            </consoleOutputReporter>
+            <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporterUnicode">
+              <disable>false</disable>
+              <usePhrasedFileName>false</usePhrasedFileName>
+              <usePhrasedClassNameInRunning>true</usePhrasedClassNameInRunning>
+              <usePhrasedClassNameInTestCaseSummary>true</usePhrasedClassNameInTestCaseSummary>
+            </statelessTestsetInfoReporter>
+          </configuration>
+
+          <dependencies>
+            <dependency>
+              <groupId>me.fabriciorby</groupId>
+              <artifactId>maven-surefire-junit5-tree-reporter</artifactId>
+              <version>${maven-surefire-junit5-tree-reporter.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+
+        <plugin>
+          <!-- Coverage tracing -->
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco-maven-plugin.version}</version>
+
+          <executions>
+            <execution>
+              <id>jacoco-unit-test-initialize</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+              <configuration>
+                <destFile>${project.build.directory}/jacoco-unit.bin</destFile>
+              </configuration>
+            </execution>
+
+            <execution>
+              <id>jacoco-unit-test-report</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+              <configuration>
+                <dataFile>${project.build.directory}/jacoco-unit.bin</dataFile>
+                <outputDirectory>${project.build.directory}/site/jacoco/unit</outputDirectory>
+              </configuration>
+            </execution>
+
+            <execution>
+              <id>jacoco-integration-test-initialize</id>
+              <phase>pre-integration-test</phase>
+              <goals>
+                <goal>prepare-agent-integration</goal>
+              </goals>
+              <configuration>
+                <destFile>${project.build.directory}/jacoco-int.bin</destFile>
+              </configuration>
+            </execution>
+
+            <execution>
+              <id>jacoco-integration-test-report</id>
+              <phase>post-integration-test</phase>
+              <goals>
+                <goal>report-integration</goal>
+              </goals>
+              <configuration>
+                <dataFile>${project.build.directory}/jacoco-int.bin</dataFile>
+                <outputDirectory>${project.build.directory}/site/jacoco/int</outputDirectory>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
