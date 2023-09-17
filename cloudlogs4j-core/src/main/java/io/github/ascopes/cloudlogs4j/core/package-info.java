@@ -13,12 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module io.github.ascopes.cloudlogs4j.aws {
-  requires static io.avaje.http.api;
-  requires io.avaje.http.client;
-  requires io.avaje.jsonb;
-  requires io.github.ascopes.cloudlogs4j.core;
-  requires java.base;
-  requires java.net.http;
-  requires static org.jspecify;
-}
+/**
+ * Common API components for CloudLogs4J integrations.
+ */
+package io.github.ascopes.cloudlogs4j.core;

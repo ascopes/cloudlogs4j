@@ -15,7 +15,10 @@
  */
 package io.github.ascopes.cloudlogs4j.aws.ex;
 
+import io.avaje.http.client.HttpException;
 import java.net.URI;
+import java.net.http.HttpResponse;
+import java.util.Objects;
 
 /**
  * Exception that is raised if an HTTP request fails with an error response.
@@ -47,6 +50,21 @@ public final class AwsHttpResponseException extends AwsIoException {
     this.uri = uri;
     this.responseStatus = responseStatus;
     this.responseBody = responseBody;
+  }
+
+  /**
+   * Initialise the exception.
+   *
+   * @param exception the HTTP exception.
+   */
+  public AwsHttpResponseException(HttpException exception) {
+    this(
+        exception.httpResponse().request().method(),
+        exception.httpResponse().uri(),
+        exception.statusCode(),
+        exception.bodyAsString()
+    );
+    initCause(exception);
   }
 
   /**

@@ -69,6 +69,13 @@ public final class EnvironmentVariableCredentialsProvider extends LazyLoadedCred
   private static final String AWS_SECRET_ACCESS_KEY = "AWS_SECRET_ACCESS_KEY";
   private static final String AWS_SESSION_TOKEN = "AWS_SESSION_TOKEN";
 
+  /**
+   * Initialise this provider.
+   */
+  public EnvironmentVariableCredentialsProvider() {
+    // Nothing to do.
+  }
+
   @Nullable
   @Override
   protected AwsCredentials fetchCredentials() throws AwsException {

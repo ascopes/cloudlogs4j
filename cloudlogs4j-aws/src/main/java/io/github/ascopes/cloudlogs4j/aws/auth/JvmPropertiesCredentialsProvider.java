@@ -63,6 +63,13 @@ public final class JvmPropertiesCredentialsProvider extends LazyLoadedCredential
   private static final String AWS_SECRET_KEY = "aws.secretKey";
   private static final String AWS_SESSION_TOKEN = "aws.sessionToken";
 
+  /**
+   * Initialise this provider.
+   */
+  public JvmPropertiesCredentialsProvider() {
+    // Nothing to do.
+  }
+
   @Nullable
   @Override
   protected AwsCredentials fetchCredentials() throws AwsException {

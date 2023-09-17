@@ -28,47 +28,12 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>cloudlogs4j-aws</artifactId>
+  <artifactId>cloudlogs4j-core</artifactId>
 
-  <name>CloudLogs4J AWS support</name>
-  <description>Amazon Web Services integrations for logging.</description>
+  <name>CloudLogs4J common components</name>
+  <description>Common components for all CloudLogs4J modules</description>
 
   <dependencies>
-    <dependency>
-      <groupId>${project.parent.groupId}</groupId>
-      <artifactId>cloudlogs4j-core</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.avaje</groupId>
-      <artifactId>avaje-http-api</artifactId>
-      <!-- We only need the annotations at compile time -->
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>io.avaje</groupId>
-      <artifactId>avaje-http-client</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.avaje</groupId>
-      <artifactId>avaje-http-client-generator</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>io.avaje</groupId>
-      <artifactId>avaje-jsonb</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.avaje</groupId>
-      <artifactId>avaje-jsonb-generator</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>

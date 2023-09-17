@@ -13,25 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.ascopes.cloudlogs4j.aws.auth;
+package io.github.ascopes.cloudlogs4j.core.ex;
 
-import io.github.ascopes.cloudlogs4j.aws.ex.AwsException;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Credentials provider that fetches the web identity token provided to the given run environment.
- *
- * <p>This is used by mechanisms like IRSA in EKS to delegate credential management to IAM for
- * pods.</p>
+ * Base exception for any CloudLogs4J exception that gets raised from any internal libraries.
  *
  * @author Ashley Scopes
  * @since 0.0.1
  */
-public final class WebIdentityCredentialsProvider extends LazyLoadedCredentialsProvider {
+public abstract class CloudLogs4jException extends Exception {
 
-  @Override
-  protected @Nullable AwsCredentials fetchCredentials() throws AwsException {
-    // TODO: implement
-    return null;
+  /**
+   * Initialise this exception.
+   *
+   * @param message the exception message.
+   */
+  protected CloudLogs4jException(String message) {
+    super(message);
+  }
+
+  /**
+   * Initialise this exception.
+   *
+   * @param message the exception message.
+   * @param cause   the cause of the exception, may be {@code null}.
+   */
+  protected CloudLogs4jException(String message, @Nullable Throwable cause) {
+    super(message, cause);
   }
 }

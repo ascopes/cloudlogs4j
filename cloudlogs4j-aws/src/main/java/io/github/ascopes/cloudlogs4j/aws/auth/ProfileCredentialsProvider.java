@@ -13,12 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module io.github.ascopes.cloudlogs4j.aws {
-  requires static io.avaje.http.api;
-  requires io.avaje.http.client;
-  requires io.avaje.jsonb;
-  requires io.github.ascopes.cloudlogs4j.core;
-  requires java.base;
-  requires java.net.http;
-  requires static org.jspecify;
+package io.github.ascopes.cloudlogs4j.aws.auth;
+
+import org.jspecify.annotations.Nullable;
+
+/**
+ * Credentials provider that reads the credentials from the given IAM profile first.
+ *
+ * <p>This inspects the {@code AWS_PROFILE} environment variable.
+ *
+ * @author Ashley Scopes
+ * @since 0.0.1
+ */
+public final class ProfileCredentialsProvider extends LazyLoadedCredentialsProvider {
+
+  @Nullable
+  @Override
+  protected AwsCredentials fetchCredentials() {
+    // TODO: implement
+    return null;
+  }
 }

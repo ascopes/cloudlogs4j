@@ -15,7 +15,7 @@
  */
 package io.github.ascopes.cloudlogs4j.aws.ex;
 
-import io.github.ascopes.cloudlogs4j.api.ex.CloudLogs4jException;
+import io.github.ascopes.cloudlogs4j.core.ex.CloudLogs4jException;
 import org.jspecify.annotations.Nullable;
 
 /**

@@ -48,12 +48,13 @@
   </developers>
 
   <modules>
-    <module>cloudlogs4j-api</module>
+    <module>cloudlogs4j-core</module>
     <module>cloudlogs4j-aws</module>
   </modules>
 
   <properties>
     <assertj.version>3.24.2</assertj.version>
+    <avaje-http.version>1.46</avaje-http.version>
     <avaje-jsonb.version>1.7</avaje-jsonb.version>
     <jspecify.version>0.3.0</jspecify.version>
     <junit.version>5.10.0</junit.version>
@@ -78,12 +79,36 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <!-- Avaje API for HTTP clients. -->
+        <groupId>io.avaje</groupId>
+        <artifactId>avaje-http-api</artifactId>
+        <version>${avaje-http.version}</version>
+      </dependency>
+
+      <dependency>
+        <!-- Avaje backend for HTTP clients. -->
+        <groupId>io.avaje</groupId>
+        <artifactId>avaje-http-client</artifactId>
+        <version>${avaje-http.version}</version>
+      </dependency>
+
+      <dependency>
+        <!-- Avaje annotation processor to generate code for HTTP clients. -->
+        <groupId>io.avaje</groupId>
+        <artifactId>avaje-http-client-generator</artifactId>
+        <version>${avaje-http.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <!-- Avaje API for JSON serialization/deserialization. -->
         <groupId>io.avaje</groupId>
         <artifactId>avaje-jsonb</artifactId>
         <version>${avaje-jsonb.version}</version>
       </dependency>
 
       <dependency>
+        <!-- Avaje annotation processor for generating JSON serializers and deserializers. -->
         <groupId>io.avaje</groupId>
         <artifactId>avaje-jsonb-generator</artifactId>
         <version>${avaje-jsonb.version}</version>
@@ -91,21 +116,21 @@
       </dependency>
 
       <dependency>
-        <!-- Fluent assertions -->
+        <!-- Fluent assertions. -->
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
         <version>${assertj.version}</version>
       </dependency>
 
       <dependency>
-        <!-- @Nullable annotation support -->
+        <!-- @Nullable annotation support. -->
         <groupId>org.jspecify</groupId>
         <artifactId>jspecify</artifactId>
         <version>${jspecify.version}</version>
       </dependency>
 
       <dependency>
-        <!-- Unit testing -->
+        <!-- Unit testing. -->
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
         <version>${junit.version}</version>
